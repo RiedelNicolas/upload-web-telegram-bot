@@ -1,15 +1,14 @@
 import TelegramBot from "node-telegram-bot-api";
 import { helpHandler } from "./help/helpHandler";
+import { videoHandler } from "./video/videoHandlers";
 
 export const initHandlers = (bot : TelegramBot) => {
     console.log('Initializing handlers...');
     try {
-        bot.onText(/\/start/, (msg) => {
-            const chatId = msg.chat.id;
-            bot.sendMessage(chatId, 'Welcome to the bot!');
-        });
-
         helpHandler(bot);
+        videoHandler(bot);
+
+        // defaultHandler(bot);
 
         console.log('Handlers initialized successfully.');
     } catch (error) {

@@ -1,6 +1,6 @@
 export const renderHelpMessage = (username: string) => {
     const helpMessage = `
-        Here are the commands you can use:
+        Estos son los comandos disponibles:
         /help - Muestra este mensaje
         /addvideo - Agrega un video a la página
         /deletevideo - Borra un video de la página
