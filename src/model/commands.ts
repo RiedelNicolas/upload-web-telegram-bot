@@ -11,5 +11,5 @@ export const commandsWithDescriptions = [
     { command: Command.ADDVIDEO, description: 'Agrega un video a la lista' },
     { command: Command.DELETEVIDEO, description: 'Elimina un video de la lista' },
     { command: Command.EDITVIDEO, description: 'Edita la descripcion de un video' },
-    { command: Command.DELETEVIDEO, description: 'Obtiene la lista de videos' },
+    { command: Command.GETVIDEOS, description: 'Obtiene la lista de videos' },
 ]

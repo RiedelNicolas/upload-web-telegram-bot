@@ -7,12 +7,17 @@ import { addDescriptionHandler } from "./actionsHandlers/addDescriptionHandler";
 import { deleteVideoHandler } from "./actionsHandlers/deleteVideoHandler";
 import { selectVideoToEditHandler } from "./actionsHandlers/selectVideoToEditHandler";
 import { editVideoDescriptionHandler } from "./actionsHandlers/editVideoDescriptionHandler";
+import { isACommand } from "../../../utils/isACommand";
 
 export const textHandler = (bot: TelegramBot) => {
     bot.on('message', (message) => {
         const chatId = message.chat.id;
         const context = conversationContext.get(chatId);
 
+        if (isACommand(message.text)) { //This path is only for text messages
+            return;
+        }
+        
         if (!context) {
             const yourUsername = message.from?.username;
             bot.sendMessage(chatId, renderDefaultMessage(yourUsername || ''));

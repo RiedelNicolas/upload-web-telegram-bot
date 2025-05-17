@@ -2,7 +2,7 @@ import TelegramBot from "node-telegram-bot-api";
 import { conversationContext } from "../../context/conversationContext";
 import { ChatStates } from "../../../model/chatStates";
 import { getVideos } from "../../../db/firebase";
-import { formatVideoList } from "../../../utils/formatVideoList";
+import { sendVideoList } from "../../../utils/sendVideoList";
 
 export const videoHandler = (bot: TelegramBot) => {
     addVideoHandler(bot);
@@ -27,8 +27,7 @@ const getVideosHandler = (bot: TelegramBot) => {
         const chatId = message.chat.id;
         bot.sendMessage(chatId, "Buscando videos ...");
             getVideos().then((videos) => {
-            const formattedResponse = formatVideoList(videos);
-            bot.sendMessage(chatId, formattedResponse);
+                sendVideoList(bot, chatId, videos);
         }).catch((error) => {
             bot.sendMessage(chatId, `Error al obtener los videos (${error.message})`);
         });
@@ -40,8 +39,7 @@ const deleteVideoHandler = (bot: TelegramBot) => {
         const chatId = message.chat.id;
         bot.sendMessage(chatId, "Buscando videos ...");
         getVideos().then((videos) => {
-            const formattedResponse = formatVideoList(videos);
-            bot.sendMessage(chatId, formattedResponse);
+            sendVideoList(bot, chatId, videos);
             bot.sendMessage(chatId, "Por favor, ingresa el ID del video que deseas eliminar");
             conversationContext.add(chatId, { state: ChatStates.SELECTING_VIDEO_TO_DELETE });
         }).catch((error) => {
@@ -55,8 +53,7 @@ const editVideoHandler = (bot: TelegramBot) => {
         const chatId = message.chat.id;
         bot.sendMessage(chatId, "Buscando videos ...");
         getVideos().then((videos) => {
-            const formattedResponse = formatVideoList(videos);
-            bot.sendMessage(chatId, formattedResponse);
+            sendVideoList(bot, chatId, videos);
             bot.sendMessage(chatId, "Por favor, ingresa el ID del video que deseas editar");
             conversationContext.add(chatId, { state: ChatStates.SELECTING_VIDEO_TO_EDIT });
         }).catch((error) => {

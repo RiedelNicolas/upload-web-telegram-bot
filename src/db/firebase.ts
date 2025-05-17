@@ -62,7 +62,7 @@ export const getVideos = async () => {
 export const deleteVideo = async (index: number) => {
   try {
     const videos = await getVideos();
-    const videoId = videos?.[index]?.id;
+    const videoId = videos?.[index-1]?.id;
     await db.collection('videos').doc(videoId).delete();
     console.log("Document successfully deleted!");
   } catch (error) {
@@ -74,7 +74,7 @@ export const deleteVideo = async (index: number) => {
 export const updateVideoDescription = async (index: number, newDescription: string) => {
   try {
     const videos = await getVideos();
-    const videoId = videos?.[index]?.id;
+    const videoId = videos?.[index-1]?.id;
     await db.collection('videos').doc(videoId).update({ description: newDescription });
     console.log("Document description successfully updated!");
   } catch (error) {
