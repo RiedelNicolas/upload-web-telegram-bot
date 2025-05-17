@@ -6,6 +6,7 @@ import { addVideoActionHandler } from "./actionsHandlers/addVideoActionHandler";
 import { addDescriptionHandler } from "./actionsHandlers/addDescriptionHandler";
 import { deleteVideoHandler } from "./actionsHandlers/deleteVideoHandler";
 import { selectVideoToEditHandler } from "./actionsHandlers/selectVideoToEditHandler";
+import { editVideoDescriptionHandler } from "./actionsHandlers/editVideoDescriptionHandler";
 
 export const textHandler = (bot: TelegramBot) => {
     bot.on('message', (message) => {
