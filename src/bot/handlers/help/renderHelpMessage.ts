@@ -1,13 +1,15 @@
-export const renderHelpMessage = (username: string) => {
-    const helpMessage = `
-        Estos son los comandos disponibles:
-        /help - Muestra este mensaje
-        /addvideo - Agrega un video a la página
-        /deletevideo - Borra un video de la página
-        /editVideo - Permite editar la descripción de un video
-        /getvideos - obtiene la lista de todos los videos de la página
+import { commandsWithDescriptions } from "../../../model/commands";
 
-        Tu usuario es: @${username}
-    `;
+export const renderHelpMessage = (username: string) => {
+
+    let helpMessage = ` Estos son los comandos disponibles: \n`;
+    
+    commandsWithDescriptions.forEach((command) => {
+        helpMessage += `\n${command.command} - ${command.description}`;
+    }
+    );
+    
+    helpMessage += `\n\nSi necesitas ayuda, no dudes en preguntar.`;
+
     return helpMessage;
 }
