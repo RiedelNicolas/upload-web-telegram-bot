@@ -3,6 +3,7 @@ import { conversationContext } from "../../context/conversationContext";
 import { ChatStates } from "../../../model/chatStates";
 import { getVideos } from "../../../db/firebase";
 import { sendVideoList } from "../../../utils/sendVideoList";
+import { validateSession } from "../../../utils/validateSession";
 
 export const videoHandler = (bot: TelegramBot) => {
     addVideoHandler(bot);
@@ -13,6 +14,7 @@ export const videoHandler = (bot: TelegramBot) => {
 
 const addVideoHandler = (bot: TelegramBot) => {
     bot.onText(/\/addvideo/, (message) => {
+        if (!validateSession(bot, message)) return;
         const chatId = message.chat.id;
         bot.sendMessage(chatId,
             "Por favor, ingresa el link que deseas agregar al video. \n\n" +
@@ -24,6 +26,7 @@ const addVideoHandler = (bot: TelegramBot) => {
 
 const getVideosHandler = (bot: TelegramBot) => {
     bot.onText(/\/getvideos/, (message) => {
+        if (!validateSession(bot, message)) return;
         const chatId = message.chat.id;
         bot.sendMessage(chatId, "Buscando videos ...");
             getVideos().then((videos) => {
@@ -36,6 +39,7 @@ const getVideosHandler = (bot: TelegramBot) => {
 
 const deleteVideoHandler = (bot: TelegramBot) => {
     bot.onText(/\/deletevideo/, (message) => {
+        if (!validateSession(bot, message)) return;
         const chatId = message.chat.id;
         bot.sendMessage(chatId, "Buscando videos ...");
         getVideos().then((videos) => {
@@ -50,6 +54,7 @@ const deleteVideoHandler = (bot: TelegramBot) => {
 
 const editVideoHandler = (bot: TelegramBot) => {
     bot.onText(/\/editvideo/, (message) => {
+        if (!validateSession(bot, message)) return;
         const chatId = message.chat.id;
         bot.sendMessage(chatId, "Buscando videos ...");
         getVideos().then((videos) => {
