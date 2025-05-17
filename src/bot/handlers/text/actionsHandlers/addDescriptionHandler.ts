@@ -1,7 +1,7 @@
 import TelegramBot from "node-telegram-bot-api";
 import { conversationContext, ConversationContextItem } from "../../../context/conversationContext";
 import { errorHandler } from "../../error/errorHandler";
-import { addVideo } from "../../../../firebase/firebase";
+import { addVideo } from "../../../../db/firebase";
 
 export const addDescriptionHandler = (
     bot: TelegramBot, 
