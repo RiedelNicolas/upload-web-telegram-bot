@@ -7,7 +7,7 @@ export interface ConversationContextItem extends ConversationContextPayload{
 export interface ConversationContextPayload {
     state: ChatStates;
     videoLink?: string;
-    videoId?: string;
+    videoId?: number;
 }
 
 

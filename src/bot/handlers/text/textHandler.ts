@@ -4,6 +4,8 @@ import { conversationContext } from "../../context/conversationContext";
 import { ChatStates } from "../../../model/chatStates";
 import { addVideoActionHandler } from "./actionsHandlers/addVideoActionHandler";
 import { addDescriptionHandler } from "./actionsHandlers/addDescriptionHandler";
+import { deleteVideoHandler } from "./actionsHandlers/deleteVideoHandler";
+import { selectVideoToEditHandler } from "./actionsHandlers/selectVideoToEditHandler";
 
 export const textHandler = (bot: TelegramBot) => {
     bot.on('message', (message) => {
@@ -27,18 +29,17 @@ export const textHandler = (bot: TelegramBot) => {
         }
 
         if (context.state === ChatStates.SELECTING_VIDEO_TO_DELETE) {
+            deleteVideoHandler(bot, message);
             return;
         }
 
         if (context.state === ChatStates.SELECTING_VIDEO_TO_EDIT) {
-            return;
-        }
-
-        if (context.state === ChatStates.EDITING_VIDEO_LINK) {
+            selectVideoToEditHandler(bot, message);
             return;
         }
 
         if (context.state === ChatStates.EDITING_VIDEO_DESCRIPTION) {
+            editVideoDescriptionHandler(bot, message, context);
             return;
         }
         

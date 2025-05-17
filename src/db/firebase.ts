@@ -58,3 +58,27 @@ export const getVideos = async () => {
     throw error;
   }
 }
+
+export const deleteVideo = async (index: number) => {
+  try {
+    const videos = await getVideos();
+    const videoId = videos?.[index]?.id;
+    await db.collection('videos').doc(videoId).delete();
+    console.log("Document successfully deleted!");
+  } catch (error) {
+    console.error("Error removing document: ", error);
+    throw error;
+  }
+}
+
+export const updateVideoDescription = async (index: number, newDescription: string) => {
+  try {
+    const videos = await getVideos();
+    const videoId = videos?.[index]?.id;
+    await db.collection('videos').doc(videoId).update({ description: newDescription });
+    console.log("Document description successfully updated!");
+  } catch (error) {
+    console.error("Error updating document: ", error);
+    throw error;
+  }
+}
