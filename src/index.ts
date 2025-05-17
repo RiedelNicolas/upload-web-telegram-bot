@@ -8,7 +8,15 @@ const initService = async () => {
     console.log('Initializing service...');
     try {
         const token = getBotToken();
-        const bot = new TelegramBot(token, { polling: true });
+        const bot = new TelegramBot(token, { polling: true,
+            request: {
+                url: 'https://api.telegram.org',
+                agentOptions: {
+                    keepAlive: true,
+                    family: 4
+                }
+            }
+         });
         initHandlers(bot);
         console.log('Service initialized successfully.');
     } catch (error) {
