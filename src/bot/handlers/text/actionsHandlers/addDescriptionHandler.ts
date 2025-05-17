@@ -1,6 +1,7 @@
 import TelegramBot from "node-telegram-bot-api";
 import { conversationContext, ConversationContextItem } from "../../../context/conversationContext";
 import { errorHandler } from "../../error/errorHandler";
+import { addVideo } from "../../../../firebase/firebase";
 
 export const addDescriptionHandler = (
     bot: TelegramBot, 
@@ -17,7 +18,13 @@ export const addDescriptionHandler = (
         return;
     }
 
-    bot.sendMessage(chatId, 'Descripción válida, video guardado');
+    bot.sendMessage(chatId, 'Guardando video...');
+
+    addVideo(videoLink, videoDescription).then((docId) => {
+        bot.sendMessage(chatId, 'Descripción válida, video guardado');
+    }).catch((error) => {
+        bot.sendMessage(chatId, `Error al guardar el video (${error.message})`);
+    });
 
     conversationContext.clear(chatId);
 }
